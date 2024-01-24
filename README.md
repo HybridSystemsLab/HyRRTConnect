@@ -5,3 +5,6 @@ run hyrrtconnect.m
 
 Dependency:
 No dependency is required.
+
+Test:
+The code passes tests on MatLab R2021a.
