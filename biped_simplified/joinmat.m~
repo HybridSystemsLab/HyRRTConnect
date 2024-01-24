@@ -1,0 +1,12 @@
+function out = joinmat(mat1,mat2)
+%JOIN Summary of this function goes here
+%   Detailed explanation goes here
+m1 = size(mat1, 1);
+m2 = size(mat2, 1);
+
+for i = 1:m1
+   m 
+end
+
+end
+

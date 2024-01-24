@@ -1,0 +1,55 @@
+function MP = constructMP(I_fw, T_fw, I_bw, T_bw, edge_map_fw, edge_map_bw)
+%CONSTRUCTMP Summary of this function goes here
+%   Detailed explanation goes here
+mp_fw = [];
+mp_bw = [];
+
+figure(1)
+hold on;
+if I_fw ~= 1
+    mp_fw = getmotionplan(T_fw, I_fw, edge_map_fw);
+%     plot3(mp_fw(3, :), mp_fw(4, :), mp_fw(5, :), '-', 'color',[0 0.5 0], 'DisplayName', 'Forward Partial Motion Plan', 'LineWidth', 3);
+end
+
+q1 = plot(mp_fw(3, 1:2), mp_fw(4, 1:2), '-', 'color',[0 0.5 0], 'DisplayName', 'Forward Partial Motion Plan', 'LineWidth', 3);
+
+for i = 1:size(mp_fw, 2) - 1
+    if (mp_fw(2, i) == mp_fw(2, i + 1))
+        plot(mp_fw(3, i:i + 1), mp_fw(4, i:i + 1), '-', 'color',[0 0.5 0], 'LineWidth', 3);
+    else
+        plot(mp_fw(3, i:i + 1), mp_fw(4, i:i + 1), '--', 'color',[0 0.5 0], 'LineWidth', 3);
+    end
+end
+
+
+if I_bw ~= 1
+    mp_bw = getmotionplan(T_bw, I_bw, edge_map_bw);
+%     plot3(mp_bw(3, :), mp_bw(4, :), mp_bw(5, :), 'm-', 'DisplayName', 'Backward Partial Motion Plan', 'LineWidth', 3);
+end
+
+q2 = plot(mp_bw(3, 1:2), mp_bw(4, 1:2), 'm-', 'DisplayName', 'Backward Partial Motion Plan', 'LineWidth', 3);
+
+for i = 1:size(mp_bw, 2) - 1
+    if (mp_bw(2, i) == mp_bw(2, i + 1))
+        plot(mp_bw(3, i:i + 1), mp_bw(4, i:i + 1),  'm-', 'LineWidth', 3);
+    else
+        plot(mp_bw(3, i:i + 1), mp_bw(4, i:i + 1),  'm--', 'LineWidth', 3);
+    end
+end
+
+legend([q1, q2])
+xlabel('$x_{1}$', 'Interpreter', 'latex');
+ylabel('$x_{2}$', 'Interpreter', 'latex');
+zlabel('$x_{3}$', 'Interpreter', 'latex');
+grid on
+box on
+set(gca, 'FontSize', 18)
+
+
+if I_bw == 1
+    MP = mp_fw;
+else
+    MP = reverseandconcatenate(mp_fw, mp_bw, 1);
+end
+end
+

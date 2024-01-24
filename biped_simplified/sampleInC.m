@@ -1,0 +1,17 @@
+function sample = sampleInC(N)
+%SAMPLEINC Summary of this function goes here
+%   Detailed explanation goes here
+while(1)
+    sample_1 = 1.6*(rand() - 0.0) - 0.8;
+    sample_2 = 1.6*(rand() - 0.0) - 0.8 ;
+    sample_3 = 0.04*(rand() - 0.0) - 0.00;
+    sample_4 = 1.4 * (rand() - 0.0) - 0.2;
+    sample_5 = 1.4 * (rand() - 0.0) -1.2;
+    sample_6 = 0.15 * (rand() - 0.0) - 0.05;
+    sample = [sample_1; sample_2; sample_3; sample_4; sample_5; sample_6];
+    if (C(sample))
+        break;
+    end
+end
+end
+
